@@ -1,46 +1,47 @@
-const contacts = require("./contacts");
+const {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+} = require("./contacts");
+const { Command } = require("commander");
 
-// const argv = require('yargs').argv;
+const program = new Command();
+
+program
+  .option("-a, --action, <type>", "choose action")
+  .option("-i, --id, <type>", "user id")
+  .option("-n, --name, <type>", "user name")
+  .option("-e, --email, <type>", "user email")
+  .option("-p, --phone, <type>", "user phone");
+
+program.parse(process.argv);
+
+const argv = program.opts();
 
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
-      const allContacts = await contacts.listContacts();
-      return console.log(allContacts);
+      const allContacts = await listContacts();
+      return console.table(allContacts);
       break;
     case "get":
-      const oneContact = await contacts.getContactById(id);
-      return console.log(oneContact);
+      const oneContact = await getContactById(id);
+      return console.table(oneContact);
       break;
     case "add":
-      const newContact = await contacts.addContact(name, email, phone);
-      return console.log(newContact);
-      break;
-    case "update":
-      const updateContact = await contacts.updateById(id, name, email, phone);
-      return console.log(updateContact);
+      const newContact = await addContact(name, email, phone);
+      return console.table(newContact);
       break;
 
     case "remove":
-      const deleteContact = await contacts.removeContact(id);
-      return console.log(deleteContact);
+      const deleteContact = await removeContact(id);
+      return console.table(deleteContact);
       break;
-      
+
     default:
       console.warn("\x1B[31m Unknown action type!");
   }
 };
 
-// invokeAction(argv);
-
-invokeAction({
-  action: "add",
-  name: "Anton",
-  email: "antonkobyshev@gmail.com",
-  phone: "+380672098165",
-});
-
-// invokeAction({
-//   action: "remove",
-//   id: "3VHl84j-5_uC8e2ghLNMa",
-// });
+invokeAction(argv);
