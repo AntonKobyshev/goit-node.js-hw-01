@@ -1,6 +1,7 @@
 # Отримуємо і виводимо весь список контактів у вигляді таблиці (console.table)
 
 node index.js --action="list"
+![alt text](https://github.com/AntonKobyshev/goit-node.js-hw-01/blob/main/screenshots/1.JPG?raw=true)
 
 # Отримуємо контакт по id і виводимо у консоль об'єкт контакту або null, якщо контакту з таким id не існує.
 
