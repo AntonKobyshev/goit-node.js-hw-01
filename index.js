@@ -13,11 +13,19 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       return console.log(oneContact);
       break;
     case "add":
+      const newContact = await contacts.addContact(name, email, phone);
+      return console.log(newContact);
+      break;
+    case "update":
+      const updateContact = await contacts.updateById(id, name, email, phone);
+      return console.log(updateContact);
       break;
 
-    // case 'remove':
-    //   // ... id
-    //   break;
+    case "remove":
+      const deleteContact = await contacts.removeContact(id);
+      return console.log(deleteContact);
+      break;
+      
     default:
       console.warn("\x1B[31m Unknown action type!");
   }
@@ -27,7 +35,12 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
 
 invokeAction({
   action: "add",
-  name: "asd",
-  email: "dui.in@egetlacus.ca",
-  phone: "(294) 840-6685",
+  name: "Anton",
+  email: "antonkobyshev@gmail.com",
+  phone: "+380672098165",
 });
+
+// invokeAction({
+//   action: "remove",
+//   id: "3VHl84j-5_uC8e2ghLNMa",
+// });
